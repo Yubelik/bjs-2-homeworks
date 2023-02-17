@@ -26,26 +26,30 @@ function calculateTotalMortgage(percent, contribution, amount, countMonths) {
   let body;
   let totalCost;
   
+
   if (!isNaN(percent)){
+    parseInt(percent);
     if (!isNaN(contribution)){
+      parseInt(contribution);  
       if (!isNaN(amount)){
+        parseInt(amount); 
         if (!isNaN(countMonths)){
-          
-          percent12 = percent/100/12;
+          parseInt(countMonths); 
+          percent = percent/100/12;
             
           body = amount - contribution;
-          test =  (percent12 + (percent12 / (((1 + percent12)^countMonths) - 1)));
+          test =  (percent + (percent / (((1 + percent)**countMonths) - 1)));
           price =  body * test;
             
           totalCost =  price * countMonths;
 
-          totalCost = Math.round(totalCost, -2);
+          totalCost = totalCost.toFixed(2);
           return totalCost;
 
-        } else return "countMonths - не число";
-      } else return "amount - не число";
-    } else return "contribution - не число";
-  } else return "percent - не число";
+        } else return false;//"countMonths - не число";
+      } else return false;//"amount - не число";
+    } else return false;//"contribution - не число";
+  } else return false;//"percent - не число";
 
 }
 
