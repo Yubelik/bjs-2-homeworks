@@ -31,15 +31,13 @@ function calculateTotalMortgage(percent, contribution, amount, countMonths) {
       if (!isNaN(amount)){
         if (!isNaN(countMonths)){
           
-          let percent12 = percent/100/12;
-          // percent = percent/12;
+          percent12 = percent/100/12;
             
           body = amount - contribution;
           test =  (percent12 + (percent12 / (((1 + percent12)^countMonths) - 1)));
           price =  body * test;
             
           totalCost =  price * countMonths;
-            
 
           totalCost = Math.round(totalCost, -2);
           return totalCost;
