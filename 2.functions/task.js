@@ -87,17 +87,11 @@ function makeWork (arrOfArr, func) {
     let element = arrOfArr[index];
       for (let i = 0; i < element.length; i++) {
         let element2 = element[i];
-        
-        // console.log("element.length = "+ element.length);
-        
       }
-      
       maxWorkerResult1 = func(...element)
       if (maxWorkerResult <  maxWorkerResult1) {
         maxWorkerResult =  maxWorkerResult1;
     }
-    // maxWorkerResult = func(...element);
-    //   console.log("element "+[index]+" = "+ maxWorkerResult);
   }
   return maxWorkerResult;
 }
