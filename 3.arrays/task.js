@@ -6,10 +6,12 @@ function compareArrays(arr1, arr2) {
 }
 
 function getUsersNamesInAgeRange(users, gender) {
-  if (Array.isArray(users) && users.length>0 && (users.findIndex(rez => rez.gender == gender)>-1)){
+  if (users.length==0 || (users.findIndex(rez => rez.gender == gender)<0)){
+    return 0;
+  } else {
     let result = users.filter(rez => rez.gender == gender ).reduce((accumulator, currentValue) => accumulator + currentValue.age, 0) / users.filter(rez => rez.gender == gender).length
     return result;
-  } else return 0;
+    }
 }
 
 
