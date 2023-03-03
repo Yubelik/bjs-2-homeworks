@@ -5,44 +5,39 @@ function Student(name, gender, age) {
     this.marks = []     
 }
 
-new Student("Петя", "Муж", "20" )
+let student11 = new Student('Петя', 'М', '21');
 
 Student.prototype.setSubject = function (subjectName) {
-  this.subject = subjectName;
+   this.subject = subjectName;
 }
 
 Student.prototype.addMarks = function (...marks) {
-    if (!Student.hasOwnProperty('marks')){
+    if ('marks' in this){
         this.marks = this.marks.concat(marks);
-        // console.log(this.marks);
     } 
+
 }
-
 Student.prototype.getAverage = function () {
-    // this.getAverage = getAverage;
-    // console.log(student.hasOwnProperty('getAverage'));
-    // console.log(student.hasOwnProperty('getAverage'));
-    let student = new Student();
-
-// console.log(this.marks.length);
-
-    if (!Student.hasOwnProperty('marks') && Student.marks.length == 0){
-        this.getAverage = 0;
-        // console.log(this.getAverage);
-    } else {
-        // console.log("has = "+Student.hasOwnProperty('marks'));
-        // console.log("length = "+Student.marks.length);        
-        // console.log("marks = "+this.marks);
-
-        this.getAverage = Student.marks.reduce((partialSum, a) => partialSum + a, 0) / Student.marks.length;
-            // console.log(this.getAverage);
-            // student.getAverage();
+    // console.log('null = ' + this.age);
+    // return 0
+    if ((('marks' in this)==false) || (this.marks.length == 0)){ 
+        return 0; 
+     } 
+     else {
+        return this.marks.reduce((partialSum, a) => partialSum + a, 0) / this.marks.length;
         }
 }
 
-//   let student = new Student();
-//   student.getAverage();
-//   student.addMarks(5, 5, 5);
-//     student.getAverage();
-//     student.marks = [3, 4, 5];   
-//     student.getAverage();
+Student.prototype.exclude = function (reason) {
+    delete this.subject;
+    delete this.marks;
+    this.excluded = reason;
+
+}
+
+let student1 = new Student("Василиса", "женский", 19);
+student1.setSubject("Algebra");
+console.log(student1.getAverage()); // 0
+student1.addMarks(4, 5, 4, 5);
+console.log(student1.getAverage()); // 4.5
+console.log(student1);
