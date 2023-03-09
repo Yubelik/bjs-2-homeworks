@@ -62,10 +62,9 @@ class DetectiveBook extends Book{
         this.type = "detective";
     }
 }
-   
-class Library extends PrintEditionItem{
-    constructor(name,book,state){
-        super(name,book,state);
+   //extends PrintEditionItem
+class Library {
+    constructor(name){
         this.name = name;
         this.books = [];
     }
@@ -74,27 +73,62 @@ class Library extends PrintEditionItem{
             this.books.push(book); 
         }
     }
-
     findBookBy(type, value){
-        console.log("type = "+type+" value = "+value);
-        // console.log("books = "+this.books[0].name);
-        // console.log("books = "+this.books[0].releaseDate);
-        // console.log("if = "+ (this.books.find(item => item.releaseDate == 2021)));
-        let x = this.books.find(item => item.type  == 2021);
-        console.log("if = "+ x.releaseDate);
         
-
-        if (item => item.type == value){
-            let finedBook  = this.books.find(item => item.type == value);
-            
-            // console.log("Find item = "+finedBook);
-            // console.log("Find item too = "+this.books.name);
-            return this.books.name;
-        } else return null;
-        
+        // console.log(" type = "+type+ " value = "+value + " this.books[] = "+this.books[0].name);
+        // console.log("this.books = "+this.books[1].type);  
+        let x = this.books.find(item => item[type] == value);
+        // console.log("x = "+ x);   
+        if (x === undefined){
+            return null;        
+            } 
+        else {
+            console.log(" type = "+type+ " value = "+value); 
+            console.log("name = " + this.books.find(item => item[type] == value).type);
+            return this.books.find(item => item[type] == value).name;
+            } 
+                 
     }
     
+    giveBookByName(bookName){
+        if (this.books.find(item => item.name == bookName) == bookName ){
+            return this.books.name
+        } 
+        // else ((this.books.find(item => item.name == bookName)) === undefined) {
+        //     // console.log("item.name = "+null);
+        //     return null;
+        // }
+    }
 }
 
+
+const library = new Library("Библиотека имени Ленина");
+
+// library.addBook(
+//  new DetectiveBook(
+//    "Артур Конан Дойл",
+//    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
+//    2019,
+//    1008
+//  )
+// );
+// library.addBook(
+//  new FantasticBook(
+//    "Аркадий и Борис Стругацкие",
+//    "Пикник на обочине",
+//    1972,
+//    168
+//  )
+// );
+library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
+library.addBook(new Magazine("Мурзилка", 1924, 60));
+
+console.log(library.findBookBy("name", "Властелин колец")); //null
+console.log(library.findBookBy("releaseDate", 1924).name); //"Мурзилка"
+// console.log("name = "+library.books[0].name);
+
+// console.log("Количество книг до выдачи: " + library.books.length); //Количество книг до выдачи: 4
+// library.giveBookByName("Машина времени");
+// console.log("Количество книг после выдачи: " + library.books.length); //Количество книг после выдачи: 3
     
 
