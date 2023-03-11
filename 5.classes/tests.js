@@ -99,7 +99,7 @@ describe('Домашнее задание к лекции 5 «Классы»', (
       library.addBook(printItemAdditional);
       library.addBook(printItem);
       const firstBook = library.findBookBy("releaseDate", 2019);
-      expect(firstBook.name).toEqual('Типовой школьный журнал');
+      expect(firstBook).toEqual('Типовой школьный журнал');
       const secondBook = library.findBookBy("releaseDate", 2154);
       expect(secondBook).toEqual(null);
     });
