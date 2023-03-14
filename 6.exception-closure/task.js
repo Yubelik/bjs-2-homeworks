@@ -27,7 +27,7 @@ class Triangle{
         }
     get perimeter(){
         let rezult = this.a+this.b+this.c
-        console.log("perimeter = "+rezult);
+        // console.log("perimeter = "+rezult);
         return (rezult);
     }
     get area(){
@@ -35,11 +35,18 @@ class Triangle{
         let rezult = Math.sqrt(p*((p-this.a)*(p-this.b)*(p-this.c)));
         rezult = Math.round(Math.floor(rezult * 10000) / 10) / 1000;
         
-        console.log("area = " + rezult);
+        // console.log("area = " + rezult);
         return (rezult);
     }
-
-    //Геттер `area` должен возвращать площадь треугольника. Для подсчёта площади используйте [формулу Герона](https://ru.wikipedia.org/wiki/%D0%A4%D0%BE%D1%80%D0%BC%D1%83%D0%BB%D0%B0_%D0%93%D0%B5%D1%80%D0%BE%D0%BD%D0%B0). 
-    //Точность должна вычисляться с обозначением до трёх знаков после запятой.
 }
-    
+
+function getTriangle(a,b,c){
+    try {
+        return new Triangle(a,b,c);
+    } catch (err) {
+        return Triangle.area;
+    }  
+}
+
+
+
