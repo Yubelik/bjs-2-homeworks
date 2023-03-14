@@ -35,12 +35,16 @@ class AlarmClock{
     }
 
     get getCurrentFormattedTime(){
-            return this.time;
+        let today = new Date();
+     
+        let data = today.getHours()+":"+today.getMinutes();
+ 
+        return data
     }
 
     start(){
         if (this.intervalId !== ""){
-            console.warn('Буделильник уже работает');
+            // console.warn('Буделильник уже работает');
             return;
         } else {
             var startOn = this.alarmCollection.forEach((item) => item.time !== time);
@@ -54,7 +58,10 @@ class AlarmClock{
     }
 
     resetAllCalls(){
+        var reset = this.alarmCollection.forEach((item) => item.canCall == true);
+            consol.log("reset = "+reset);
 
+        
     }
 
     clearAlarms(){
