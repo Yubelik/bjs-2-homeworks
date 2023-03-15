@@ -1,54 +1,47 @@
 class AlarmClock{
-    constructor(alarmCollection,intervalId){
+    constructor(){
         this.alarmCollection = [];
         this.intervalId = null;
     }
 
     addClock(hourAndMin,callback){  
-        if (hourAndMin == "" && toDo == ""){          
+        if (!hourAndMin && !callback){          
             throw new Error('Отсутствуют обязательные аргументы');         
-        }   else {
-                if (this.alarmCollection.find(item => item[time] == hourAndMin) ){
-                    console.warn('Уже присутствует звонок на это же время');                 
-                } else {
-                    let timerAdd = {
-                        callback: callback,
-                        time: hourAndMin,
-                        canCall: true
-                    }
-                    this.alarmCollection.push(timerAdd); 
-                    // console.log('alarmCollection = '+this.intervalId);
+        }   
+            if (this.alarmCollection.find(item => item[time] == hourAndMin) ){
+                console.warn('Уже присутствует звонок на это же время');                 
+            } else {
+                let timerAdd = {
+                    callback: callback,
+                    time: hourAndMin,
+                    canCall: true
                 }
-            }
+                this.alarmCollection.push(timerAdd); 
+                    // console.log('alarmCollection = '+this.intervalId);
+                }         
     }
 
     removeClock(time){  
-            let x = this.alarmCollection.find(item => item.time == time);
-            if (x === undefined){          
-                return null;
-            } 
-            else {
-                var filtered = this.alarmCollection.filter((item) => item.time !== time);
-                this.alarmCollection = filtered;
-                return x; 
-            }
+                this.alarmCollection = this.alarmCollection.filter((item) => item.time !== time);
     }
-
+        
     get getCurrentFormattedTime(){
-        let today = new Date();
-     
-        let data = today.getHours()+":"+today.getMinutes();
- 
-        return data
+        let today = new Date().toLocaleTimeString("ru-Ru", {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+        console.log('today = '+today);
+        return today;
     }
 
     start(){
-        if (this.intervalId !== ""){
+        if (this.intervalId){
             // console.warn('Буделильник уже работает');
             return;
         } else {
-            var startOn = this.alarmCollection.forEach((item) => item.time !== time);
-            consol.log("startOn = "+startOn);
+            let time = new Date();
+            this.alarmCollection.forEach((item) => item.time !== time);
+            console.log("start");
         }
     }
 
@@ -58,10 +51,8 @@ class AlarmClock{
     }
 
     resetAllCalls(){
-        var reset = this.alarmCollection.forEach((item) => item.canCall == true);
-            consol.log("reset = "+reset);
-
-        
+        this.alarmCollection.forEach((item) => item.canCall == true);
+        consol.log("reset");   
     }
 
     clearAlarms(){
