@@ -44,7 +44,7 @@ function getTriangle(a,b,c){
     try {
         return new Triangle(a,b,c);
     } catch (err) {
-        return Triangle.area;
+        return "Ошибка! Треугольник не существует";
     }  
 }
 
