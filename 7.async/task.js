@@ -5,10 +5,10 @@ class AlarmClock{
     }
 
     addClock(hourAndMin,callback){  
-        if (!hourAndMin && !callback){          
+        if (!hourAndMin || !callback){          
             throw new Error('Отсутствуют обязательные аргументы');         
         }   
-            if (this.alarmCollection.find(item => item[time] == hourAndMin) ){
+            if (this.alarmCollection.find(item => item == hourAndMin) ){
                 console.warn('Уже присутствует звонок на это же время');                 
             } else {
                 let timerAdd = {
@@ -41,7 +41,7 @@ class AlarmClock{
         } else {
             let time = new Date();
             this.alarmCollection.forEach((item) => item.time !== time);
-            console.log("start");
+            // console.log("start");
         }
     }
 
@@ -52,11 +52,12 @@ class AlarmClock{
 
     resetAllCalls(){
         this.alarmCollection.forEach((item) => item.canCall == true);
-        consol.log("reset");   
+        // consol.log("reset");   
     }
 
     clearAlarms(){
-
+        this.stop();
+        this.alarmCollection = []
     }
 }
 
