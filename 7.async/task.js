@@ -5,20 +5,23 @@ class AlarmClock{
     }
 
     addClock(hourAndMin,callback){  
-        if (!hourAndMin || !callback){          
+        if (!hourAndMin || !callback){ 
+                   
             throw new Error('Отсутствуют обязательные аргументы');         
         }   
-            if (this.alarmCollection.find(item => item == hourAndMin) ){
-                console.warn('Уже присутствует звонок на это же время');                 
-            } else {
-                let timerAdd = {
-                    callback: callback,
-                    time: hourAndMin,
-                    canCall: true
-                }
-                this.alarmCollection.push(timerAdd); 
-                    // console.log('alarmCollection = '+this.intervalId);
-                }         
+        if (this.alarmCollection.find(item => item.time == hourAndMin) ){
+            console.warn('Уже присутствует звонок на это же время');                 
+        } 
+        // console.log('hourAndMin = '+hourAndMin + " callback = "+ callback);
+        let timerAdd = {
+            callback: callback,
+            time: hourAndMin,
+            canCall: true
+        }
+        this.alarmCollection.push(timerAdd); 
+            // console.log('alarmCollection1 = '+this.alarmCollection[0].time);
+        // console.log(this.alarmCollection.forEach(item => console.log(" Время = "+item.time)));
+                        
     }
 
     removeClock(time){  
@@ -30,18 +33,21 @@ class AlarmClock{
             hour: "2-digit",
             minute: "2-digit",
         });
-        console.log('today = '+today);
+        // console.log('today = '+today);
         return today;
     }
 
     start(){
+        
         if (this.intervalId){
             // console.warn('Буделильник уже работает');
             return;
         } else {
-            let time = new Date();
-            this.alarmCollection.forEach((item) => item.time !== time);
-            // console.log("start");
+            this.intervalId = setInterval(startOneSec, 1000, this.getCurrentFormattedTime, this.alarmCollection);
+            function startOneSec(time, arr){
+                arr.forEach(item => console.log(item.time));
+                arr.forEach((item) => item.time == time);
+            }
         }
     }
 
