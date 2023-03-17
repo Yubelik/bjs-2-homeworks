@@ -42,13 +42,22 @@ class AlarmClock{
         if (this.intervalId){
             // console.warn('Буделильник уже работает');
             return;
-        } else {
-            this.intervalId = setInterval(startOneSec, 1000, this.getCurrentFormattedTime, this.alarmCollection);
-            function startOneSec(time, arr){
-                arr.forEach(item => console.log(item.time));
-                arr.forEach((item) => item.time == time);
-            }
-        }
+        } 
+        this.alarmCollection.forEach((item, index, array) => {
+            this.intervalId = setInterval(function(getCurrentFormattedTime) {
+                console.log("item.time = "+ item.time + " this.getCurrentFormattedTime = "+ this.getCurrentFormattedTime); 
+                if (this.getCurrentFormattedTime == item.time && item.canCall == true){  
+                    item.callback();
+                    // console.log("item.canCall = "+item.canCall) 
+                    item.canCall = !item.canCall;
+                    // console.log("!item.canCall = "+!item.canCall)     
+                }
+            }, 10000);
+        });
+                
+
+        // }
+        
     }
 
     stop(){
@@ -57,7 +66,7 @@ class AlarmClock{
     }
 
     resetAllCalls(){
-        this.alarmCollection.forEach((item) => item.canCall == true);
+        this.alarmCollection.forEach((item) => item.canCall = true);
         // consol.log("reset");   
     }
 
