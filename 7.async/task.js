@@ -28,32 +28,29 @@ class AlarmClock{
                 this.alarmCollection = this.alarmCollection.filter((item) => item.time !== time);
     }
         
-    get getCurrentFormattedTime(){
+    getCurrentFormattedTime(){
         let today = new Date().toLocaleTimeString("ru-Ru", {
             hour: "2-digit",
             minute: "2-digit",
         });
-        // console.log('today = '+today);
         return today;
     }
 
     start(){
         
         if (this.intervalId){
-            // console.warn('Буделильник уже работает');
             return;
         } 
-        this.alarmCollection.forEach((item, index, array) => {
-            this.intervalId = setInterval(function(getCurrentFormattedTime) {
-                // console.log("item.time = "+ item.time + " this.getCurrentFormattedTime = "+ this.getCurrentFormattedTime); 
-                if (this.getCurrentFormattedTime == item.time && item.canCall == true){  
+        
+        this.intervalId = setInterval(() => 
+            this.alarmCollection.forEach((item) => {
+                if (this.getCurrentFormattedTime() == item.time){
+                    item.canCall == false;  
                     item.callback();
-                    // console.log("item.canCall = "+item.canCall) 
-                    item.canCall = !item.canCall;
-                    // console.log("!item.canCall = "+!item.canCall)     
+                    item.canCall = !item.canCall;    
                 }
-            }, 10000);
-        });
+            }), 1000);
+        
                 
 
         // }

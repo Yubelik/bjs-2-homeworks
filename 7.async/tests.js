@@ -31,7 +31,7 @@ describe('Домашнее задание к лекции 7 «Асинхронн
   });
 
   it('будильник должен возвращать время в формате HH:MM', () => {
-    expect(clock.getCurrentFormattedTime).toEqual(new Date().toLocaleTimeString("ru-Ru", {
+    expect(clock.getCurrentFormattedTime()).toEqual(new Date().toLocaleTimeString("ru-Ru", {
       hour: "2-digit",
       minute: "2-digit",
     }));
