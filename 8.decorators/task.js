@@ -5,11 +5,9 @@ function cachingDecoratorNew(func) {
   function wrapper(...args) {     
       const hash = md5(args);
       let objectInCache = cache.find((item) => item.hash == hash ); 
-      if (objectInCache && typeof(objectInCache) !== "undefined") { 
-          // console.log("Из кэша: " + objectInCache.value); 
+      if (objectInCache) { 
           return "Из кэша: " + objectInCache.value;
-      }
-    // console.log("Вычисляем значение хеша");      
+      }   
       let result = func(...args); 
       let resultObj = {
         hash: hash, 
@@ -34,22 +32,21 @@ function debounceDecoratorNew(func, delay) {
   let timeoutID = null;
   function wrapper(...args){
     wrapper.allCount++;
-       if (timeoutID){
-       
-        
-        return;
+       if (!timeoutID){
+        func(...args);
+        wrapper.count++;
+        // return;
       }
       
-      const result = func(...args);
-
-      // wrapper.allCount++;
+      
+      clearTimeout(timeoutID);
+      
       timeoutID = setTimeout(() => {
         func(...args);
         wrapper.count++;
-        clearTimeout(timeoutID);
         }, delay);
-        wrapper.count++;
-      return result;
+      //  wrapper.count++;
+      // return result;
     }
     return wrapper;
 }
@@ -64,9 +61,11 @@ setTimeout(() => upgradedSendSignal(5, 2300), 2300); // Сигнал отпра�
 setTimeout(() => upgradedSendSignal(6, 4400), 4400); // проигнорировано, так как следующий сигнал отменит предыдущий (4500 - 4400 < 2000)
 setTimeout(() => upgradedSendSignal(7, 4500), 4500); // Сигнал будет отправлен, так как последний вызов debounce декоратора (спустя 4500 + 2000 = 6500) 6,5с
 setTimeout(() => {
-  console.log("было выполнено 3 отправки сигнала = "+upgradedSendSignal.count); // было выполнено 3 отправки сигнала
-  console.log("было выполнено 6 вызовов декорированной функции = "+upgradedSendSignal.allCount); // было выполнено 6 вызовов декорированной функции
+  console.log("было выполнено 3 = "+upgradedSendSignal.count); // было выполнено 3 отправки сигнала
+  console.log("было выполнено 6 = "+upgradedSendSignal.allCount); // было выполнено 6 вызовов декорированной функции
 }, 7000)
+
+
 
 
 
