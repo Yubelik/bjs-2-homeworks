@@ -12,16 +12,12 @@ class AlarmClock{
         if (this.alarmCollection.find(item => item.time == hourAndMin) ){
             console.warn('Уже присутствует звонок на это же время');                 
         } 
-        // console.log('hourAndMin = '+hourAndMin + " callback = "+ callback);
         let timerAdd = {
             callback: callback,
             time: hourAndMin,
             canCall: true
         }
-        this.alarmCollection.push(timerAdd); 
-            // console.log('alarmCollection1 = '+this.alarmCollection[0].time);
-        // console.log(this.alarmCollection.forEach(item => console.log(" Время = "+item.time)));
-                        
+        this.alarmCollection.push(timerAdd);              
     }
 
     removeClock(time){  
@@ -50,11 +46,6 @@ class AlarmClock{
                     item.canCall = !item.canCall;    
                 }
             }), 1000);
-        
-                
-
-        // }
-        
     }
 
     stop(){
@@ -64,7 +55,6 @@ class AlarmClock{
 
     resetAllCalls(){
         this.alarmCollection.forEach((item) => item.canCall = true);
-        // consol.log("reset");   
     }
 
     clearAlarms(){
